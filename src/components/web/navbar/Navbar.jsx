@@ -31,8 +31,9 @@ function Navbar() {
   if (isLoading) {
     return <p>...Loading</p>
   }
-  console.log(userToken)
-  console.log(data)
+ // console.log(userToken)
+ // console.log(data)
+
 
 
 

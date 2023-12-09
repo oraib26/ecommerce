@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react'
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
-import ReactImageMagnify from 'react-image-magnify';
+//import ReactImageMagnify from 'react-image-magnify';
 
 
 function CategoriesDetails() {
@@ -21,7 +21,7 @@ function CategoriesDetails() {
         <div className='products '>
             {data?.products.length ? data?.products.map((product) =>
                 <div className="product border text-center p-2 w-25 " key={product._id}>
-                    <ReactImageMagnify {...{
+                    {/* <ReactImageMagnify {...{
                         smallImage: {
                             alt: product.name ,
                             isFluidWidth: true,
@@ -33,8 +33,9 @@ function CategoriesDetails() {
                             height: 2000
                         },
 
-                    }} />
-                    {/* <img src={product.mainImage.secure_url} /> */}
+                    }} /> */}
+                    <img src={product.mainImage.secure_url} /> 
+
                     <h2 className='fs-6 mt-3'>{product.name}</h2>
                     <Link to={`/products/${product._id}`}>details</Link>
                 </div>
