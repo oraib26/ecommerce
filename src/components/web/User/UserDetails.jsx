@@ -8,7 +8,7 @@ export default function UserDetails() {
     if(localStorage.getItem("userToken")!="null"){
       setUserToken(localStorage.getItem("userToken"));
       getUserData();
-      console.log(text)
+      //console.log(text)
     }
   })
 
