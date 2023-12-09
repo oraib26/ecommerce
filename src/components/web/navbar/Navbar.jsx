@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/User';
 import { useQuery } from 'react-query';
 import { CartContext } from '../context/Cart';
 
 function Navbar() {
-  let {userToken,setUserToken ,userData,setUserData} = useContext(UserContext);
+  let { userToken, setUserToken, userData, setUserData } = useContext(UserContext);
   const { getCartContext } = useContext(CartContext);
 
   let navigate = useNavigate();
@@ -16,16 +16,23 @@ function Navbar() {
     navigate('/home')
 
   }
+  useEffect(()=>{
+    if(localStorage.getItem("userToken")!=null){
+      setUserToken(localStorage.getItem("userToken"));
+    }
+  })
   const getCart = async () => {
     const res = await getCartContext();
     //console.log(res)
-      return res;
+    return res;
 
   }
   const { data, isLoading } = useQuery("Cart", getCart)
   if (isLoading) {
     return <p>...Loading</p>
   }
+  console.log(userToken)
+  console.log(data)
 
 
 
@@ -50,9 +57,12 @@ function Navbar() {
                 <a className="nav-link " href="#">Products</a>
               </li>
 
-              {userToken ? (<li className="nav-item">
-                <Link className="nav-link border-start border-secondary-subtle" to='/cart'>Cart    {<b className='border border-danger px-2'>{data.count} 🛒 </b>} </Link>
-              </li>) : null}
+              {userToken ?
+                <li className="nav-item">
+                  <Link className="nav-link border-start border-secondary-subtle" to='/cart'>
+                    Cart {  data?<b className='border border-danger px-2'>🛒{data.count}  </b> : null} </Link>
+                </li> : null}
+                {/*   */}
 
 
             </ul>
@@ -60,19 +70,21 @@ function Navbar() {
             <ul className="navbar-nav me-5">
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {userData!=null?userData.userName:'Account'}
+                  {userData != null ? userData.userName : 'Account'}
                 </a>
                 <ul className="dropdown-menu ">
-                  {userToken == null ?( <>
+
+
+                  {userToken == null ? <>
                     <li><Link className="dropdown-item " to="/register">register</Link></li>
                     <li><hr className="dropdown-divider" /></li>
                     <li><Link className="dropdown-item" to="/login">login</Link></li>
-                  </>) :(
+                  </> :
                     <>
                       <li><Link className="dropdown-item " to="/user/profile">profile</Link></li>
                       <li><hr className="dropdown-divider" /></li>
                       <li><Link className="dropdown-item" onClick={logout}>logout</Link></li>
-                    </>)
+                    </>
 
                   }
                 </ul>

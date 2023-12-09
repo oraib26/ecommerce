@@ -69,8 +69,8 @@ function Categories() {
         }}
         // scrollbar={{ draggable: true }}
         autoplay={{ delay: 2000 }}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log('slide change')}
+        // onSwiper={(swiper) => console.log(swiper)}
       >
 
 

@@ -43,12 +43,13 @@ function Cart() {
                   <h2>Subtotal</h2>
                 </div>
               </div>
+             {console.log(data)} 
 
 
 
 
 
-              {data?.products? ( //اقواس بدون ريترن  ما بزبط {}
+              {data?.products.length? ( //اقواس بدون ريترن  ما بزبط {}
                 data.products.map((product,index) =>
                 
                   <div className="item" key={product._id}>

@@ -10,11 +10,17 @@ import { UserContext } from '../context/User.jsx'
 
 
 function Login() {
-    let {setUserToken} = useContext(UserContext);
+    let {setUserToken,userToken} = useContext(UserContext);
     const navigate = useNavigate();
     const initialValues = {//اكتبيهن نفس ما بده الباك اند
         email: '',
         password: '',
+    }
+    console.log(userToken);
+
+    if(userToken){
+        return navigate(-1);
+
     }
 
     const onSubmit = async users => {

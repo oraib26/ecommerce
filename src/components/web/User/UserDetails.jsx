@@ -1,9 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { UserContext } from '../context/User';
 
 export default function UserDetails() {
-  let {userData} = useContext(UserContext);
-  console.log(userData)
+  let {userData,setUserToken,getUserData} = useContext(UserContext);
+
+  useEffect(()=>{
+    if(localStorage.getItem("userToken")!="null"){
+      setUserToken(localStorage.getItem("userToken"));
+      getUserData();
+      console.log(text)
+    }
+  })
 
   return (
     <div className='container border w-50 py-3 my-4 bg-body-tertiary'>
