@@ -23,10 +23,10 @@ function Register() {
     const onSubmit = async users => {
 
         const formData = new FormData();
-        formData.append("userName", users.userName)
+        formData.append("userName", users.userName)//اضافة داتا
         formData.append("email", users.email)
         formData.append("password", users.password)
-        formData.append("image", users.image)
+        formData.append("image", users.image) 
 
         const { data } = await axios.post(`https://ecommerce-node4.vercel.app/auth/signup`, formData)
       
@@ -86,7 +86,7 @@ function Register() {
         },
         {
             id: 'image',
-            type: 'file',
+            type: 'file',//الفايل لاي اشي ما اله قيمه مثل الفايل العادي او الصورة او زي هيك اشي 
             name: 'image',
             title: 'user image',
             onChange: handleFieldChange// لما يصير تغيير عالانبوت ناديلي هالفنكشن
@@ -103,7 +103,7 @@ function Register() {
             name={input.name}
             title={input.title}
             key={index}
-            onChange={input.onChange || formik.handleChange}//  اول شرط بشتغل مع الصورة اذا اصر تغيير عليها 
+            onChange={input.onChange || formik.handleChange}//  اول شرط بشتغل مع الصورة اذا اصر تغيير عليها  , 
             onBlur={formik.handleBlur}// هون استدعينا الاون بلور والتاتشد عشان لما بدنا نسجل بالحقل يركز بالحقل نفسه لحد ما يخلصه وبعدها ينتقل عالحقل الثاني ويعمل اله فالييديت
             touched={formik.touched}
             errors={formik.errors} />
@@ -111,8 +111,9 @@ function Register() {
     return (
         <>
             <div className="container pb-5 ">
-                <h2 className='text-center mt-3'> ~ Create Account ~</h2>
-                <form onSubmit={formik.handleSubmit} encType='multipart/form-data' className='w-50 border p-2 m-auto bg-success-subtle rounded'>
+                <h2 className='text-center mt-3'> ~ Create Account ~</h2> 
+                {/* انك تايب طريقة تدعم تشفير الفايل  */}
+                <form onSubmit={formik.handleSubmit} encType='multipart/form-data' className='w-50 border border-black border-2 p-2 m-auto bg-success-subtle rounded'>
                     {renderInputs}
                     <button type='submit' disabled={!formik.isValid} className='d-flex m-auto px-5'>register</button>
                 </form>

@@ -7,16 +7,22 @@ import DashboardLayout from './../layouts/DashboardLayout';
 import CategoriesDashboard from './../components/dashboard/categories/CategoriesDashboard';
 import HomeDashboard from '../components/dashboard/home/HomeDashboard.jsx';
 import Register from '../components/web/register/Register.jsx';
+import Login from '../components/web/login/Login.jsx';
 
 
 export const router = createBrowserRouter([// هاد المتغير عبارة عن ارريه اوف اوبجيكت router
   {
     path: "/",
-    element: <Layout/>,
+    element: <Layout saveCurrentUser={saveCuttentUser}/>,
     children: [
       {
         path:'register',
         element:<Register/>
+
+      },
+      {
+        path:'login',
+        element:<Login/>
 
       },
       // هون ابناء اللي اوت عبارة عن ارريه اوف اوبجيكت , ابناء يعني الي اوت هاي ع مين بتقدر تعمل اكسسيز لانه زي ما حكينا انه لكل لي اوت اكسيز بتختلف عن غيرها (وحدة لليوزر ووحدة للأدمن)
