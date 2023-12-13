@@ -2,26 +2,48 @@ import React, { useContext } from 'react'
 import './Cart.css';
 import { CartContext } from '../context/Cart.jsx';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 
 function Cart() {
 
-  const { getCartContext, removeItemContext } = useContext(CartContext);
+  const { getCartContext, removeItemContext,clearCartContext,
+    decreaseQuantityContext,increaseQuantityContext } = useContext(CartContext);
 
   const getCart = async () => {
     const res = await getCartContext();
-    console.log(res)
+    //console.log(res)
       return res;
 
   }
   const { data, isLoading } = useQuery("Cart", getCart)
   if (isLoading) {
-    return <p>...Loading</p>
+    return "";
   }
-  console.log(data)
+ // console.log(data)
+  const clearCart =  ()=>{
+    const res =  clearCartContext();
+    //console.log('ss')
+    //return res;
+  }
+
+
 
   const removeCart = async (productId) => {
-    const res = await removeItemContext(productId)
+    const res = await removeItemContext(productId);
     return res;
+  }
+
+  const clkToDecrease = async (productId) => {
+    const res = await decreaseQuantityContext(productId);
+    console.log('de')
+    return res;
+
+  }
+  const clkToIncrease = async (productId) => {
+    const res = await increaseQuantityContext(productId);
+   console.log(productId)
+    return res;
+
   }
   return (
     <div className="cart">
@@ -43,7 +65,7 @@ function Cart() {
                   <h2>Subtotal</h2>
                 </div>
               </div>
-             {console.log(data)} 
+         
 
 
 
@@ -78,7 +100,7 @@ function Cart() {
                       </div>
                     </div>
                     <div className="quantity">
-                      <button>
+                      <button onClick={()=>clkToDecrease(product.details._id)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width={16}
@@ -95,8 +117,8 @@ function Cart() {
                           />
                         </svg>
                       </button>
-                      <span>1</span>
-                      <button>
+                      <span>{product.quantity}</span>
+                      <button onClick={()=>clkToIncrease(product.details._id)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width={16}
@@ -121,6 +143,7 @@ function Cart() {
 
 
               ) : <h2>cart is empty</h2>}
+              <button className='btn ' onClick={clearCart}>clear All</button>
 
               
 
@@ -160,11 +183,12 @@ function Cart() {
                   <span>$1345.00</span>
                 </div>
                 <div className="checkout">
-                  <a href="#">Chekout</a>
+                  <Link to='/order'>Chekout</Link>
                 </div>
               </div>
             </div>
           </div>
+          
           <div className="row">
             <h2>Have a coupon ?</h2>
             <p>Add your code for an instant cart discount</p>

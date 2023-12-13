@@ -10,6 +10,8 @@ function Product() {
   const { productId } = useParams();
   let navigate = useNavigate();
 
+  const {getCartContext} = useContext(CartContext);
+
 
   const getProductDetails = async () => {
     const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products/${productId}`)
@@ -25,8 +27,11 @@ function Product() {
   let {userToken} = useContext(UserContext);
 
   const addToCart = async (productId) => {
+    console.log(productId)
     if(userToken){
     const res = await addToCartContext(productId);
+    console.log(productId)
+
   }
   else{
     navigate('/login')

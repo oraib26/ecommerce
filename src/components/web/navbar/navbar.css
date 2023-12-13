@@ -1,0 +1,13 @@
+.navbar{
+    background-color: #04364A !important;
+}
+.navbar .dropdown-menu{
+    background-color: #043d53;
+
+}
+.navbar a{
+    color: white !important;
+}
+.navbar b{
+    color: cadetblue;
+}

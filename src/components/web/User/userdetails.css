@@ -1,0 +1,16 @@
+.profile {
+    display: flex;
+    gap: 30px;
+}
+.userDataLinks nav {
+  
+    background-color: #043d53;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.userDataLinks nav a{
+    text-decoration: none;
+   
+}

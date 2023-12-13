@@ -11,7 +11,8 @@ import { createBrowserRouter, RouterProvider, } from "react-router-dom";
  import { useContext, useEffect, useState } from "react";
 // import CategoriesDetails from "./components/web/categories/CategoriesDetails.jsx";
 // import Product from "./components/web/products/Product.jsx";
-import { CartContext, CartContextProvider } from "./components/web/context/Cart.jsx";
+import {  CartContextProvider } from "./components/web/context/Cart.jsx";
+import   {OrderContextProvider}  from "./components/web/context/Order.jsx";
 //import Cart from "./components/web/cart/Cart.jsx";
 //import ForgotPassword from "./components/web/login/ForgotPassword.jsx";
 //import SendCode from "./components/web/login/SendCode.jsx";
@@ -20,6 +21,8 @@ import UserContextProvider, { UserContext } from "./components/web/context/User.
 //import ProtectedRoute from "./components/web/protectedRoute/ProtectedRoute.jsx";
 
 import {router} from "./layouts/Routes.jsx"
+import './App.css';
+import Loading from "./components/loading/Loading.jsx";
 
 
 
@@ -153,11 +156,16 @@ function App() {
        /* <UserContextProvider> اي مكان بمشروعي بقدر يشوف اليوزر توكين الموجود باليوزر كونتيكست*/
 
       /* ترتيب الكبونوننت هون ما بفرق بشكل عام الا في حال الكمبوننت الي فوق بده متغير او اشي من الكبوننت الي تحت (اليوزر من الكارت مثلا)  */
+      //<Loading>
+        
       <CartContextProvider>  
         {/* ^خلينا كل الكومبنوتس يشوف هالبروفايدور اول ما يشتغل  */}
-      
+      <OrderContextProvider> 
         <RouterProvider router={router} />
+      </OrderContextProvider>
       </CartContextProvider>
+       
+    //  </Loading>
 
       //<UserContextProvider> حذفناه وبعثناه للمين جي اس اكس لانه بدنا الآب يشوف اليوزر كوتكست اولب ما ييحمل 
                             //لانه البرنامج اول ما يشتغل بحمل صفحة الاآب ف لازم قبل ما يحملها نزودها باليوزر كووتكس(يوزر توكين)

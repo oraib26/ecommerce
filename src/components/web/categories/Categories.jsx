@@ -44,18 +44,19 @@ function Categories() {
   // if(isLoading){
   //   return <h2>loading ...</h2>
   // }
-  const x= useContext(CartContext);
-  console.log(x);
+  // const x= useContext(CartContext);
+  // console.log(x);
 
   const { data, isLoading } = useQuery('web_categories', getCategories);//بتعمل كاشينغ للمتغيرات وبتخزنها بالكاش ميموري بالمتصفح بحيث لو طلبتها  مرة ثانية  بكون اسرع الحصول عليها افضل من الطريقة العادية  
   // عبارة عن سيرفر تيت وبتعمل فيتش , بحيث لو صار تعديل عالبيانات المعروضة عندي رح يجيبها ويعرضلي ياها وفيها از لودينغ
   //console.log(data?.categories)
   if (isLoading) {
-    return <p>...loading</p>
+    return "";
   }
 
   return (
-    <div className='container'>
+    <div className="categories">
+       <div className='container '>
       
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
@@ -92,6 +93,9 @@ function Categories() {
       </Swiper>
 
     </div>
+    </div>
+
+   
   )
 }
 

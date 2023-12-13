@@ -1,3 +1,7 @@
+.categories{
+     background-color: #cfe4ff ; 
+
+}
 img{
     aspect-ratio: 200/213;
     width: 100px;
@@ -23,15 +27,15 @@ img{
 
 
 .swiper-button-prev, .swiper-rtl .swiper-button-next,.swiper-button-prev:after, .swiper-button-next:after  {
-    background-color: rgb(179, 155, 155);
-    color: rgb(255, 255, 255);
+
+    color: #0e759e ;
     width: 40px;
     height: 40px;
     font-size: 30px !important;
-  
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 900;
 
 }
 
