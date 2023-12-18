@@ -19,6 +19,7 @@ import UserInfo from '../components/web/User/UserInfo.jsx';
 import UserContact from '../components/web/User/UserContact.jsx';
 import Order from '../components/web/order/Order.jsx';
 import MyOrders from '../components/web/User/MyOrders.jsx';
+import ShowProducts from '../components/web/User/ShowProducts.jsx';
 
 
 export const router = createBrowserRouter([// هاد المتغير عبارة عن ارريه اوف اوبجيكت router
@@ -95,6 +96,12 @@ export const router = createBrowserRouter([// هاد المتغير عبارة �
           {
             path: 'myOrders',
             element:<MyOrders/>,
+            children:[
+              {
+                path :':orderId',
+                element:<ShowProducts/>
+              }
+            ]
 
           }
         ]
@@ -106,6 +113,7 @@ export const router = createBrowserRouter([// هاد المتغير عبارة �
           <ProtectedRoute><Order /></ProtectedRoute>
 
       },
+
       {
         path: '*',
         element: <h2>404 page not found --- web</h2>//في حال اليوزر  حط كلمة غلط او مش موجودة بعد هاذ 

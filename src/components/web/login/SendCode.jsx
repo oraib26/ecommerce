@@ -41,7 +41,7 @@ export default function SendCode() {
     const formik = useFormik({
         initialValues,
         onSubmit,
-        resetPassSchema: resetPassSchema
+        validationSchema: resetPassSchema
     })
     const inputs = [ //داينمك 
 

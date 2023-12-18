@@ -23,8 +23,14 @@ export const resetPassSchema = yup.object({
 export const forgetpassSchema = yup.object({
     email:yup.string().required("email is required").email(),
     password:yup.string().required("password is required").min(3,"must at least 3 characters").max(30,"max is 30 char"),
-    cosd:yup.string().required("code is required").min(4,"must at least 4 characters").max(4,"max is 4 char")
+    code:yup.string().required("code is required").length(4,"must  4 characters")
 
+
+
+})
+export const sendOrder=yup.object({
+    phone:yup.string().required("phone is required").min(9,"must at least 9 digits").max(11,"max is 11 char"),
+    address:yup.string().required("address is required"),
 
 
 })

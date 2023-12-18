@@ -182,9 +182,14 @@ function Cart() {
                   <label className="total">Total</label>
                   <span>$1345.00</span>
                 </div>
-                <div className="checkout">
-                  <Link to='/order'>Chekout</Link>
-                </div>
+                {console.log(data.products.length)}
+                <button className="checkout" disabled={data.products.length==0}>
+                  {
+                    data.products.length!=0? <Link to='/order' >Chekout</Link>:<p>Chekout</p>
+
+                  }
+                 
+                </button>
               </div>
             </div>
           </div>

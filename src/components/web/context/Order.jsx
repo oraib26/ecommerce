@@ -1,19 +1,18 @@
 import axios from "axios";
 import { createContext } from "react";
+import { toast } from "react-toastify";
 
 
 export const OrderContext = createContext(null);
 
 export function OrderContextProvider({ children }) {
 
-    const createOrderContext = async (address, phone, couponName ) => {
+    const createOrderContext = async (users) => {
         try {
             const token = localStorage.getItem("userToken");
-            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/order`,
-                {address },
-                { phone},
-                { couponName} ,
-                { headers: { Authorization: `Tariq__${token}` } }
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/order`,users
+
+                ,{ headers: { Authorization: `Tariq__${token}` } }
             )
             if (data.message == "success") {
                 toast.success('Sended order succesfully, cheak your orders plz', {

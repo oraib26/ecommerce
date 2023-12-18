@@ -75,8 +75,7 @@ function Navbar() {
                   </> :
                     <>
                       <li><Link className="dropdown-item " to="/user/profile">profile</Link></li>
-                      <li><hr className="dropdown-divider" /></li>
-                      <li><Link className="dropdown-item " to="/order">orders</Link></li>
+
                       <li><hr className="dropdown-divider" /></li>
                       <li><Link className="dropdown-item" onClick={logout}>logout</Link></li>
                     </>

@@ -44,7 +44,7 @@ function ForgotPassword() {
     const formik = useFormik({
         initialValues,
         onSubmit,
-        forgetpassSchema: forgetpassSchema
+        validationSchema: forgetpassSchema
     })
     const inputs = [ //داينمك 
 

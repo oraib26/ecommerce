@@ -27,7 +27,6 @@ function Product() {
   let {userToken} = useContext(UserContext);
 
   const addToCart = async (productId) => {
-    console.log(productId)
     if(userToken){
     const res = await addToCartContext(productId);
     console.log(productId)
