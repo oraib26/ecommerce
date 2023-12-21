@@ -20,7 +20,7 @@ import UserContact from '../components/web/User/UserContact.jsx';
 import Order from '../components/web/order/Order.jsx';
 import MyOrders from '../components/web/User/MyOrders.jsx';
 import ShowProducts from '../components/web/User/ShowProducts.jsx';
-import Products from '../components/web/products/Products.Jsx';
+import Products from '../components/web/products/Products.jsx';
 import ProductReviews from '../components/web/products/ProductReviews.jsx';
 import AddReview from '../components/web/products/AddReview.jsx';
 
