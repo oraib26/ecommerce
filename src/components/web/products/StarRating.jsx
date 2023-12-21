@@ -1,5 +1,5 @@
 import React from 'react';
-import './Products.css'
+import './products.css'
 
 const StarRating = ({ rating }) => {
   const renderStars = () => {
