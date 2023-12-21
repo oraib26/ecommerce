@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/Cart';
+import Loading from '../../loading/Loading.jsx'
 
 function Categories() {
   const getCategories = async () => {
@@ -51,7 +52,7 @@ function Categories() {
   // عبارة عن سيرفر تيت وبتعمل فيتش , بحيث لو صار تعديل عالبيانات المعروضة عندي رح يجيبها ويعرضلي ياها وفيها از لودينغ
   //console.log(data?.categories)
   if (isLoading) {
-    return "";
+    return <Loading/>;
   }
 
   return (

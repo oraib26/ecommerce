@@ -34,6 +34,13 @@ export const sendOrder=yup.object({
 
 
 })
+export const addReview=yup.object({
+    comment:yup.string().required("comment is required").min(4,"must at least 9 characters"),
+    rating:yup.number().required("rating is required").min(0,"must at least 0").max(5,"max is 5"),
+
+
+})
+
 
 
  

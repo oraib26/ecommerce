@@ -37,6 +37,7 @@ export function CartContextProvider({ children }) {
             return data;
         }
         catch (error) {
+            alert('this product is already in your cart :)')
             console.log(error)
         }
 

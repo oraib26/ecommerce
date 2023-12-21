@@ -2,9 +2,10 @@ import React, { useContext } from 'react'
 import { OrderContext } from '../context/Order.jsx';
 import { useQuery } from 'react-query';
 import { Link, Outlet, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function MyOrders() {
-  let {orderId}=useParams();
+  let { orderId } = useParams();
   const { getOrderContext } = useContext(OrderContext);
 
   const getOrder = async () => {
@@ -18,9 +19,36 @@ function MyOrders() {
   if (isLoading) {
     return "";
   }
-  console.log(data)
-  const showPro = (orderId) => {
-     id=orderId;
+  //console.log(data)
+  const cancelOrder = async (orderId) => {
+    console.log(orderId)
+    try {
+      const token = localStorage.getItem("userToken");
+      const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/order/cancel/${orderId}`,
+        { headers: { Authorization: `Tariq__${token}` } }
+      )
+      console.log(data)
+      if (data.message == "success") {
+
+        toast.success('canceled order succesfully', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
+
+
+      }
+      return data;
+    } catch (error) {
+
+      console.log(error)
+    }
   }
 
   return (
@@ -52,7 +80,8 @@ function MyOrders() {
               <td>{order.paymentType}</td>
               <td>{order.phoneNumber}</td>
               <td>{order.status}</td>
-              <td><Link to={`${order._id}`}  >show</Link></td>
+              <td><Link to={`${order._id}`} >show</Link></td>
+              {/* <td><button onClick={() => cancelOrder(order._id)} >cancel</button></td> */}
 
 
             </tr>

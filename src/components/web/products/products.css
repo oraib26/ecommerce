@@ -1,0 +1,17 @@
+/* StarRating.css */
+.star-rating {
+  display: flex;
+  justify-content: center;
+  
+  
+}
+
+.star {
+  font-size: 24px; /* Adjust the font size as needed */
+  color: #0e0d0d; /* Default color for stars */
+  margin-right: 4px; /* Adjust the spacing between stars */
+}
+
+.star.active {
+  color: #ffcc00; /* Color for filled stars */
+}

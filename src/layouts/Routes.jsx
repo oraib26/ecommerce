@@ -1,5 +1,5 @@
 import React from 'react'
-import { createBrowserRouter, RouterProvider, } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider, } from "react-router-dom";
 import Layout from './Layout.jsx';
 import Home from '../components/web/home/Home.jsx';
 import Categories from '../components/web/categories/Categories.jsx';
@@ -20,6 +20,9 @@ import UserContact from '../components/web/User/UserContact.jsx';
 import Order from '../components/web/order/Order.jsx';
 import MyOrders from '../components/web/User/MyOrders.jsx';
 import ShowProducts from '../components/web/User/ShowProducts.jsx';
+import Products from '../components/web/products/Products.Jsx';
+import ProductReviews from '../components/web/products/ProductReviews.jsx';
+import AddReview from '../components/web/products/AddReview.jsx';
 
 
 export const router = createBrowserRouter([// هاد المتغير عبارة عن ارريه اوف اوبجيكت router
@@ -58,7 +61,24 @@ export const router = createBrowserRouter([// هاد المتغير عبارة �
       },
       {
         path: 'products/:productId',
-        element: <Product />
+        element: <Product />,
+        children: [
+          {
+
+            path: 'reviews',
+            element: <ProductReviews />,
+            children:[
+              {
+                path: 'addreview',
+                element:
+                  <ProtectedRoute><AddReview /></ProtectedRoute>
+              },
+            ]
+
+          }
+
+
+        ]
 
       },
       {
@@ -84,22 +104,22 @@ export const router = createBrowserRouter([// هاد المتغير عبارة �
         children: [
 
           {
-            index:true,
-            element:<UserInfo/>,
+            index: true,
+            element: <UserInfo />,
 
           },
           {
             path: 'contact',
-            element:<UserContact/>,
+            element: <UserContact />,
 
           },
           {
             path: 'myOrders',
-            element:<MyOrders/>,
-            children:[
+            element: <MyOrders />,
+            children: [
               {
-                path :':orderId',
-                element:<ShowProducts/>
+                path: ':orderId',
+                element: <ShowProducts />
               }
             ]
 
@@ -108,11 +128,18 @@ export const router = createBrowserRouter([// هاد المتغير عبارة �
 
       },
       {
+        path: 'products',
+        element: <Products />
+
+
+      },
+      {
         path: 'order',
         element:
           <ProtectedRoute><Order /></ProtectedRoute>
 
-      },
+      }, 
+
 
       {
         path: '*',

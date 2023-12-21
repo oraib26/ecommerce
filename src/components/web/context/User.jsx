@@ -6,7 +6,7 @@ export let UserContext = createContext();
 export default function UserContextProvider({ children }) {
     const [userToken, setUserToken] = useState(null);
     const [userData, setUserData] = useState(null);
-    const [loading, isLoading] = useState(true);
+    const [loading, isLoading2] = useState(true);
 
 
 
@@ -16,7 +16,7 @@ export default function UserContextProvider({ children }) {
             { headers: { Authorization: `Tariq__${userToken}` } })
             setUserData(data.user);
            // console.log(data.user)
-           isLoading(false);
+           isLoading2(false);
 
         }
     }
@@ -26,7 +26,7 @@ export default function UserContextProvider({ children }) {
     },[userToken])
 
       
-    return <UserContext.Provider value={{userToken,setUserToken,userData,setUserData,getUserData,loading}}> {/*هون سمحت لليوزر توكين يطلع برا ول السيت يوزر تطلع برا ( يعني بصير اطلع فاريبل او فنكشن )  */}
+    return <UserContext.Provider value={{userToken,setUserToken,userData,setUserData,getUserData,loading,isLoading2}}> {/*هون سمحت لليوزر توكين يطلع برا ول السيت يوزر تطلع برا ( يعني بصير اطلع فاريبل او فنكشن )  */}
         {children}
     </UserContext.Provider>
 

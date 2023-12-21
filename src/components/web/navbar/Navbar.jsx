@@ -26,7 +26,7 @@ function Navbar() {
 
   }
   // console.log(userToken)
-  // console.log(data)
+  // console.log(userData)
 
 
   return (
@@ -47,7 +47,7 @@ function Navbar() {
                 <Link className="nav-link border-end " to="/categories">Categoreis</Link>
               </li>
               <li className="nav-item mx-2">
-                <a className="nav-link " href="#">Products</a>
+                <Link className="nav-link " to='/products'>Products</Link>
               </li>
 
               {userToken ?
@@ -63,7 +63,13 @@ function Navbar() {
             <ul className="navbar-nav me-5">
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {userData != null ? userData.userName : 'Account'}
+                  {userData != null ?
+          
+                    userData.userName
+                    /* <img src={userData.image.secure_url} alt="userImage" className='rounded-circle  p-4   '  /> */
+         
+                  
+                  : 'Account'}
                 </a>
                 <ul className="dropdown-menu ">
 

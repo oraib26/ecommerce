@@ -9,7 +9,7 @@ export default function UserDetails() {
   if (loading) {
     return "";
   }
-  console.log(userData)
+  //console.log(userData)
 
 
 

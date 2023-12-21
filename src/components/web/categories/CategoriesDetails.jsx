@@ -10,6 +10,7 @@ function CategoriesDetails() {
     const getCategoriesDetails = async () => {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products/category/${categoryId}`)
         //console.log(data)
+
         return data;
     }
     const { data, isLoading } = useQuery('category_details', getCategoriesDetails);
@@ -18,9 +19,10 @@ function CategoriesDetails() {
     }
 
     return (
-        <div className='products '>
+        <div className='products1 row container m-auto py-5 '>
             {data?.products.length ? data?.products.map((product) =>
-                <div className="product border text-center p-2 w-25 " key={product._id}>
+
+                <div className="product border text-center p-5 col-md-3 m-3" key={product._id}>
                     {/* <ReactImageMagnify {...{
                         smallImage: {
                             alt: product.name ,
@@ -34,7 +36,7 @@ function CategoriesDetails() {
                         },
 
                     }} /> */}
-                    <img src={product.mainImage.secure_url} /> 
+                    <img src={product.mainImage.secure_url} />
 
                     <h2 className='fs-6 mt-3'>{product.name}</h2>
                     <Link to={`/products/${product._id}`}>details</Link>

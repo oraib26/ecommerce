@@ -46,6 +46,8 @@
     display: flex;
     align-items: center;
     gap: 41px;
+    border-bottom: 1px solid ;
+
 }
 .products .product-info{
     flex-grow: 1;
