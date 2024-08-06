@@ -3,7 +3,7 @@ import { resetPassSchema } from '../validation/Validate.js'
 import React from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Input from '../../pages/Input.jsx'
 
 
@@ -27,7 +27,7 @@ export default function SendCode() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored",
+             
             });
             navigate('/auth/forgotPassword');
         }
@@ -51,6 +51,42 @@ export default function SendCode() {
             name: 'email',
             title: 'user email',
             value: formik.values.email,
+            icon: (
+                <svg
+                  width="18px"
+                  height="18px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <path
+                      d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
+                      stroke="#000000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                    <rect
+                      x="3"
+                      y="5"
+                      width="18"
+                      height="14"
+                      rx="2"
+                      stroke="#000000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    ></rect>{" "}
+                  </g>
+                </svg>
+              ),
 
         }
         // الفاليو الي بتنحط جوا الانبوت احنا بنحطها 
@@ -66,19 +102,37 @@ export default function SendCode() {
             onChange={formik.handleChange}//  اول شرط بشتغل مع الصورة اذا اصر تغيير عليها  , 
             onBlur={formik.handleBlur}// هون استدعينا الاون بلور والتاتشد عشان لما بدنا نسجل بالحقل يركز بالحقل نفسه لحد ما يخلصه وبعدها ينتقل عالحقل الثاني ويعمل اله فالييديت
             touched={formik.touched}
-            errors={formik.errors} />
+            errors={formik.errors}
+            {...input}
+            />
     )
 
 
     return (
-        <div>
-            <h3 className='text-center mt-3'> ~ Reset Password ~</h3>
-
-            <form onSubmit={formik.handleSubmit} className='w-25 border border-black border-2 ps-2 pb-2 my-5 m-auto bg-success-subtle rounded'>
-                {renderInputs}
-                <button type='submit' disabled={!formik.isValid} className='d-flex mt-3 px-5'>send</button>
-            </form>
-
+        <div className="container pb-5 vh-100 mt-5 pt-5">
+        <div className="mt-5"
+        >
+            <h2 className="text-center mb-5 basicFontFamily basicTextColor">
+          {" "}
+          Forgot Your Password{" "}
+        </h2>
+        {/* انك تايب طريقة تدعم تشفير الفايل  */}
+        <form
+          onSubmit={formik.handleSubmit}
+          encType="multipart/form-data"
+          className="w-50 border border-2 p-5 m-auto  rounded shadow"
+        >
+          {renderInputs}
+          <button
+            type="submit"
+            disabled={!formik.isValid}
+            className="d-flex m-auto px-5 basicBgColor border-0 rounded py-1 bold"
+          >
+            send code
+          </button>
+        </form>
         </div>
+       
+      </div>
     )
 }

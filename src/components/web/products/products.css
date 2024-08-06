@@ -2,8 +2,6 @@
 .star-rating {
   display: flex;
   justify-content: center;
-  
-  
 }
 
 .star {
@@ -15,3 +13,57 @@
 .star.active {
   color: #ffcc00; /* Color for filled stars */
 }
+
+.productDetalies {
+  background-image: url(/src/components/web/products/product.jpg);
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: -50px;
+}
+.bg-primar {
+  background-color: #f0e7d8;
+}
+
+.products22 {
+  background-image: url(/src/components/web/products/products3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.buyNow:hover{
+  opacity: 0.6;
+
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-link {
+  color: var(--mainColor) !important;
+  border: 1px solid var(--mainColor) !important;
+  background-color: white; 
+}
+
+.page-link:hover {
+  background-color:var(--mainColor) !important; 
+  color: white !important; 
+}
+
+.active .page-link {
+  background-color: var(--mainColor) !important; 
+  color: white !important; 
+  border: 1px solid var(--mainColor) !important;; 
+}
+
+

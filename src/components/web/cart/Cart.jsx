@@ -1,58 +1,104 @@
-import React, { useContext } from 'react'
-import './Cart.css';
-import { CartContext } from '../context/Cart.jsx';
-import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
+import React, { useContext } from "react";
+import "./Cart.css";
+import { CartContext } from "../context/Cart.jsx";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Link } from "react-router-dom";
 
 function Cart() {
+  const {
+    getCartContext,
+    removeItemContext,
+    clearCartContext,
+    decreaseQuantityContext,
+    increaseQuantityContext,
+  } = useContext(CartContext);
+  const queryClient = useQueryClient();
+  let total = 0;
 
-  const { getCartContext, removeItemContext, clearCartContext,
-    decreaseQuantityContext, increaseQuantityContext } = useContext(CartContext);
-
+  const removeCartMutation = useMutation(
+    ({ productId }) => removeItemContext(productId),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["cart"]);
+      },
+    }
+  );
+  const clearCartMutation = useMutation(
+    () => clearCartContext(),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["cart"]);
+      },
+    }
+  );
+  const increaseQuntMutation = useMutation(
+    ({productId}) => increaseQuantityContext(productId),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["cart"]);
+      },
+    }
+  );
+  const decreaseQuntMutation = useMutation(
+    ({productId}) => decreaseQuantityContext(productId),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["cart"]);
+      },
+    }
+  );
   const getCart = async () => {
     const res = await getCartContext();
-    //console.log(res)
     return res;
-
-  }
-  const { data, isLoading } = useQuery("Cart", getCart)
+  };
+  const { data, isLoading } = useQuery("cart", getCart);
   if (isLoading) {
     return "";
   }
-  // console.log(data)
+  data?.products.map((product) => {
+    total = total + product.details.finalPrice * product.quantity;
+  });
   const clearCart = () => {
-    const res = clearCartContext();
-    //console.log('ss')
-    //return res;
-  }
+    clearCartMutation.mutate({});
 
-
+  };
 
   const removeCart = async (productId) => {
-    const res = await removeItemContext(productId);
-    return res;
-  }
+    removeCartMutation.mutate({ productId});
+
+    // const res = await removeItemContext(productId);
+    // return res;
+  };
 
   const clkToDecrease = async (productId) => {
-    const res = await decreaseQuantityContext(productId);
-    console.log('de')
-    return res;
-
-  }
+    decreaseQuntMutation.mutate({ productId});
+  };
   const clkToIncrease = async (productId) => {
-    const res = await increaseQuantityContext(productId);
-    //console.log(productId)
-    return res;
+    increaseQuntMutation.mutate({ productId});
+  };
 
-  }
+
   return (
     <div className="cart">
       <div className="container ">
-        <div className="row">
-          <div className="cart-items">
-            <div className="products  " id="products">
-              <div className="item">
-                <div className="product-info">
+        <div className="row ">
+          <div className="w-50 position-relative">
+            {data?.count != 0 ? (
+              <button
+                className="w-25 border-0 fw-bold rounded position-absolute bg-dark text-white clearAll-btn"
+                disabled={!data?.count}
+                onClick={clearCart}
+              >
+                Clear Cart
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
+          <div className="cart-items ">
+            <div className="products p-3" id="products">
+              <div className="item  ">
+                <div className="product-info ps-5 ms-5">
                   <h2>Product</h2>
                 </div>
                 <div className="quantity">
@@ -66,102 +112,164 @@ function Cart() {
                 </div>
               </div>
 
-
-
-
-
-
               {data?.products.length ? ( //اقواس بدون ريترن  ما بزبط {}
-                data.products.map((product, index) =>
-
+                data.products.map((product, index) => (
                   <div className="item" key={product._id}>
-                    <div className="product-info">
-                      <img src={product.details.mainImage.secure_url} />
-                      <div className="product-details">
-                        <h2>{product.details.name}</h2>
-                      
-                        <a href="#" onClick={() => removeCart(product.details._id)}>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={24}
-                            height={25}
-                            viewBox="0 0 24 25"
-                            fill="none"
-                            className='pe-1'
-                          >
+                    <div className="product-info mb-2">
+                      <button
+                        onClick={() => removeCart(product.details._id)}
+                        className="w-25 remove-btn"
+                        title="remove item"
+                      >
+                        <svg
+                          width="23px"
+                          height="23px"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g
+                            id="SVGRepo_tracerCarrier"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></g>
+                          <g id="SVGRepo_iconCarrier">
+                            {" "}
                             <path
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                              d="M5.29289 5.79289C5.68342 5.40237 6.31658 5.40237 6.70711 5.79289L12 11.0858L17.2929 5.79289C17.6834 5.40237 18.3166 5.40237 18.7071 5.79289C19.0976 6.18342 19.0976 6.81658 18.7071 7.20711L13.4142 12.5L18.7071 17.7929C19.0976 18.1834 19.0976 18.8166 18.7071 19.2071C18.3166 19.5976 17.6834 19.5976 17.2929 19.2071L12 13.9142L6.70711 19.2071C6.31658 19.5976 5.68342 19.5976 5.29289 19.2071C4.90237 18.8166 4.90237 18.1834 5.29289 17.7929L10.5858 12.5L5.29289 7.20711C4.90237 6.81658 4.90237 6.18342 5.29289 5.79289Z"
-                              fill="#6C7275"
-                              
-                            />
-                          </svg>
-                          remove
-                        </a>
+                              d="M10 11V17"
+                              stroke="#c62424"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>{" "}
+                            <path
+                              d="M14 11V17"
+                              stroke="#c62424"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>{" "}
+                            <path
+                              d="M4 7H20"
+                              stroke="#c62424"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>{" "}
+                            <path
+                              d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z"
+                              stroke="#c62424"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>{" "}
+                            <path
+                              d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+                              stroke="#c62424"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>{" "}
+                          </g>
+                        </svg>
+                      </button>
+                      <img
+                        src={product.details.mainImage.secure_url}
+                        className="rounded"
+                      />
+                      <div className="product-details d-flex align-items-center justify-content-center">
+                        <h2>{product.details.name}</h2>
                       </div>
                     </div>
                     <div className="quantity">
-                      <button onClick={() => clkToDecrease(product.details._id)}>
+                      <button
+                        onClick={() => clkToDecrease(product.details._id)}
+                        className="rounded-circle "
+                      >
                         <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={16}
-                          height={17}
-                          viewBox="0 0 16 17"
+                          width="18px"
+                          height="18px"
+                          viewBox="0 0 24 24"
                           fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <path
-                            d="M3.22852 8.5H12.5618"
-                            stroke="#121212"
-                            strokeWidth="0.75"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g
+                            id="SVGRepo_tracerCarrier"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></g>
+                          <g id="SVGRepo_iconCarrier">
+                            {" "}
+                            <path
+                              d="M6 12L18 12"
+                              stroke="#000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>{" "}
+                          </g>
                         </svg>
                       </button>
-                      <span className='px-2'>{product.quantity}</span>
-                      <button onClick={() => clkToIncrease(product.details._id)}>
+                      <span className="px-2">{product.quantity}</span>
+                      <button
+                        onClick={() => clkToIncrease(product.details._id)}
+                        className="rounded-circle "
+                      >
                         <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={16}
-                          height={17}
-                          viewBox="0 0 16 17"
+                          width="18px"
+                          height="18px"
+                          viewBox="0 0 24 24"
                           fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          stroke="#000"
                         >
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M8.37565 3.83333C8.37565 3.62622 8.20776 3.45833 8.00065 3.45833C7.79354 3.45833 7.62565 3.62622 7.62565 3.83333V8.125H3.33398C3.12688 8.125 2.95898 8.29289 2.95898 8.5C2.95898 8.7071 3.12688 8.875 3.33398 8.875H7.62565V13.1667C7.62565 13.3738 7.79354 13.5417 8.00065 13.5417C8.20776 13.5417 8.37565 13.3738 8.37565 13.1667V8.875H12.6673C12.8744 8.875 13.0423 8.7071 13.0423 8.5C13.0423 8.29289 12.8744 8.125 12.6673 8.125H8.37565V3.83333Z"
-                            fill="#121212"
-                          />
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g
+                            id="SVGRepo_tracerCarrier"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></g>
+                          <g id="SVGRepo_iconCarrier">
+                            {" "}
+                            <path
+                              d="M4 12H20M12 4V20"
+                              stroke="#000"
+                              stroke-width="2.140"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>{" "}
+                          </g>
                         </svg>
                       </button>
                     </div>
-                    <div className="price">${product.details.price}</div>
-                    <div className="subtotal">${(product.details.price) * (product.quantity)}</div>
+                    <div className="price ">
+                      {product.details.discount > 0 ? (
+                        <div className="">
+                          <span className="text-decoration-line-through fs-6 d-block">
+                            {product.details.price}
+                          </span>
+                          <span className="text-danger fs-5">
+                            ${product.details.finalPrice}
+                          </span>
+                        </div>
+                      ) : (
+                        <span>${product.details.price}</span>
+                      )}
+                    </div>
+                    <div className="subtotal">
+                      ${product.details.price * product.quantity}
+                    </div>
                   </div>
-
-                )
-
-
-              ) : <h2>cart is empty</h2>}
-              {
-                data.count!=0 ? <button className='btn btn-warning w-25' disabled={!data.count} onClick={clearCart}>clear All</button>:""
-
-
-              }
-
-
-
-
-
-
+                ))
+              ) : (
+                <h2 className="basicFontFamily">cart is empty ..</h2>
+              )}
             </div>
 
-
-
             <div className="cart-summary w-25 p-0 border-0 shadow-lg ms-3">
-              <h2 className='text-center pt-3 text-capitalize'>Cart summary</h2>
+              <h2 className="text-center pt-3 text-capitalize">Cart summary</h2>
               <div className="summery-items pb-3">
                 <div className="summary-item">
                   <div className="form-group">
@@ -181,37 +289,29 @@ function Cart() {
                   </div>
                   <span>%21.00</span>
                 </div>
-                <div className="summary-footer">
-                  <label>Subtotal</label>
-                  <span>$1234.00</span>
-                </div>
+
                 <div className="summary-footer">
                   <label className="total">Total</label>
-                  <span>$1345.00</span>
+                  <span>${total}</span>
                 </div>
-                {console.log(data.products.length)}
-                <button className="checkout border-0 bg-light" disabled={data.products.length == 0}>
-                  {
-                    data.products.length != 0 ? <Link to='/order' >Chekout</Link> : <p>Chekout</p>
-
-                  }
-
+                {console.log(data?.products.length)}
+                <button
+                  className="checkout border-0 bg-light"
+                  disabled={data?.products.length == 0}
+                >
+                  {data?.products.length != 0 ? (
+                    <Link to="/order">Chekout</Link>
+                  ) : (
+                    <p>Chekout</p>
+                  )}
                 </button>
               </div>
             </div>
           </div>
-
-          
         </div>
       </div>
     </div>
-
-
-
-
-
-
-  )
+  );
 }
 
-export default Cart
+export default Cart;

@@ -1,4 +1,7 @@
+@import "../../../index.css";
+
 .footer{
-    background-color: #04364A !important;
+    background-color: #000000 !important;
     color: aliceblue;
+    font-family: var(--basicFontFamily)
 }

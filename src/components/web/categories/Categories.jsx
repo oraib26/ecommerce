@@ -12,6 +12,7 @@ import 'swiper/css/scrollbar';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/Cart';
 import Loading from '../../loading/Loading.jsx'
+import '../../../index.css'
 
 function Categories() {
   const getCategories = async () => {
@@ -57,12 +58,19 @@ function Categories() {
 
   return (
     <div className="categories">
-       <div className='container '>
+      
+      <div className="">
+      <div className="categoriesBg d-flex justify-content-end align-items-center ps-5">
+        <h1 className='basicFontFamily w-50 text-center'> Explore our diverse categories to find what you're looking for..
+
+</h1>
+      </div>
+      <div className='container '>
       
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={50}
-        slidesPerView={6.5}
+        slidesPerView={6}
         navigation
         loop={true}
         pagination={{
@@ -80,20 +88,21 @@ function Categories() {
         {data?.categories.length ? data?.categories.map((category) =>
 
           <SwiperSlide key={category._id}>
-            <Link to={`/products/category/${category._id}`}>
+            <Link className='text-decoration-none ' to={`/products/category/${category._id}`}>
               <div className="category">
-                <img src={category.image.secure_url} className='rounded-circle' />
-                <h2 className='fs-6 category-name text-center '>{category.name}</h2>
+                <img src={category.image.secure_url} className='img-fluid' />
               </div>
             </Link>
           </SwiperSlide>
 
-        ) : <h2>no category found</h2>}
+        ) : <h2 className='d-flex justify-content-center align-items-center h-100 basicFontFamily fw-bold'>No Category Found ...</h2>}
       <div className="swiper-custom-pgination text-center mt-4"></div>
 
       </Swiper>
 
     </div>
+      </div>
+    
     </div>
 
    

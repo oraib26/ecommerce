@@ -17,14 +17,11 @@ export default function UserDetails() {
 
     <aside className=' profile border border-dark'>
       <div className="userDataLinks">
-        <nav className='p-3'>
-          <Link to='' className='text-white border-bottom border-dark'>
+        <nav className='p-3 text-center'>
+          <Link to='' className='text-white border-bottom border-dark my-3'>
             Information
-          </Link>
-          <Link to='contact' className='text-white  border-bottom border-dark'>
-            Contact
-          </Link>
-          <Link to='myOrders' className='text-white  border-bottom border-dark'>
+          </Link>  
+          <Link to='myOrders' className='text-white  border-bottom border-dark my-3'>
             Orders
           </Link>
 

@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+.homePage{
+    background-image: url('./e-commerce-homePage.jpg');
+    background-repeat: none;
+    background-size: cover;
+}
+.homePage .header h1{
+    font-family: var(--basicFontFamily)
+   
+}

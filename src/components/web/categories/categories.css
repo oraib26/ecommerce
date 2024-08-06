@@ -1,7 +1,4 @@
-.categories{
-     background-color: #cfe4ff ; 
-
-}
+@import url("../../../index.css");
  img{
     aspect-ratio: 200/213;
     width: 100px;
@@ -20,15 +17,17 @@
     
 }
 .category-name{
-    color: rgb(141, 116, 116) !important;
-    text-decoration: underline;
+    color: rgb(0, 0, 0) !important;
+    font-family: var(--secondaryFontFamily);
+    
+  
    
 }
 
 
 .swiper-button-prev, .swiper-rtl .swiper-button-next,.swiper-button-prev:after, .swiper-button-next:after  {
 
-    color: #0e759e ;
+    color: var(--mainColor); 
     width: 40px;
     height: 40px;
     font-size: 30px !important;
@@ -39,3 +38,35 @@
 
 }
 
+.categoriesBg{
+    background-image: url(/src/components/web/categories/e-commerce-shopping.jpg);
+    min-height: 450px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+
+}
+.products11{
+    background-image: url(/src/components/web/categories/categoriesDetalies.jpg);
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y:-50px ;
+
+}
+
+
+.products12 .product:hover{
+    opacity: .9;
+    border: 7px solid #aca088;
+
+}
+.products12 .product{
+    transition: .5s;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+}

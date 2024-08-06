@@ -12,7 +12,7 @@ export default function Layout() {
     {/* حطينا ثنين لي اوت عشان في لي اوت لليوزر و لي اوت للادمن , ف كل لي اوت بتختلف لكل واحد فيهم من ناجية يو ار ال*/}
     
     <Navbar />{/*   <-- user={user} setUser={setUser} )جوا النافبار كان هدول بالطريقة القديمة (الي قبل الكونتكست*/}
-    <Outlet/>
+    <Outlet  />
     {/* الاوت ليت هون متغير حسب اليوزر عشو بد يعمل اكسيز يعني بعد الداش مثلا هون يا بختار هوم او كاتيجوريز <<{Outlet} */}
     {/*what is the path? =>  /categories or /home or ... (children of the this Layout(user))*/}
     <Footer/>

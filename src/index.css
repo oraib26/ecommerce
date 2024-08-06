@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+:root{
+    --basicFontFamily: "Edu AU VIC WA NT Hand", cursive;
+    --mainColor:chocolate;
+    --secondaryFontFamily:"Roboto", sans-serif;
+}
+
+.basicFontFamily{
+    font-family: var(--basicFontFamily);
+}
+.secondaryFontFamily{
+    font-family: var(--secondaryFontFamily);
+}
+.basicBgColor{
+    background-color: var(--mainColor);
+}
+.basicTextColor{
+    color:var(--mainColor)
+}

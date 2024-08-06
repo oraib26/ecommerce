@@ -3,6 +3,7 @@ import { OrderContext } from '../context/Order.jsx';
 import { useQuery } from 'react-query';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { format } from 'date-fns';
 
 function MyOrders() {
   let { orderId } = useParams();
@@ -54,7 +55,7 @@ function MyOrders() {
   return (
 
     <>
-      <table className="table table-bordered  table-striped  ">
+      <table className="table shadow my-5 ">
         <thead>
           <tr>
             <th>#</th>
@@ -62,7 +63,7 @@ function MyOrders() {
             <th>address</th>
             <th>finalPrice</th>
             <th>paymentType</th>
-            <th>phoneNumber</th>
+            <th>phone</th>
             <th>status</th>
             <th> products</th>
           </tr>
@@ -73,10 +74,12 @@ function MyOrders() {
           {data?.orders.length ? data.orders.map((order, index) =>
 
             <tr key={index}>
-              <td>{index}</td>
-              <td>{order.createdAt}</td>
+            <td>{index}</td>
+              <td>
+              {format(new Date(order.createdAt), `dd/MM/yyyy HH:mm:ss a`)}
+             </td>
               <td>{order.address}</td>
-              <td>{order.finalPrice}</td>
+              <td>{order.finalPrice}$</td>
               <td>{order.paymentType}</td>
               <td>{order.phoneNumber}</td>
               <td>{order.status}</td>
@@ -92,7 +95,7 @@ function MyOrders() {
 
 
       </table>
-      <div className="  p-3">
+      <div className=" p-3">
         <Outlet />
       </div>
 

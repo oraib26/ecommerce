@@ -1,14 +1,16 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 
 export const CartContext = createContext(null); //بدنا نخلي الكومبوناتس يمر من خلال هاد البروفايدور
 export function CartContextProvider({ children }) {
     //هون زي كأنه بنعمل حقن للبروفايدر لكل ابناءة 
-    // let [count, setCount] = useState(0);
+     let [count, setCount] = useState(0);
     // let [name, setName] = useState("oraib");
     //اي ابن كوبوننت صار عند متغير اسمه كاونت و نيم
     //let [count,setCount]=useState(0);
+    let total=0;
 
 
 
@@ -22,14 +24,14 @@ export function CartContextProvider({ children }) {
             //Tariq__ >> is perar token//
             if (data.message == "success") {
                 toast.success('product Added succesfully', {
-                    position: "top-right",
+                    position: "top-left",
                     autoClose: 3000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "colored",
+                    
                 });
             }
             console.log(data)
@@ -37,8 +39,17 @@ export function CartContextProvider({ children }) {
             return data;
         }
         catch (error) {
-            alert('this product is already in your cart :)')
-            console.log(error)
+            toast.warning('This product is already in your cart', {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+  
         }
 
 
@@ -50,7 +61,8 @@ export function CartContextProvider({ children }) {
             const token = localStorage.getItem('userToken');
             const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/cart`,
                 { headers: { Authorization: `Tariq__${token}` } })
-            //   console.log(data.count)
+               console.log(data)
+
             return data;
 
         } catch (error) {
@@ -118,8 +130,21 @@ export function CartContextProvider({ children }) {
 
     }
 
+    const {
+        data: cartData,
+        isLoading: cartLoading,
+        error: cartError,
+      } = useQuery(["cart"], () => getCartContext());
+      useEffect(() => {
+        if (cartData &&  !cartLoading && !cartError) {
+            setCount(cartData.count|| 0);
+        }
+      }, [cartData, cartLoading, cartError]);
+    
 
-    return <CartContext.Provider value={{ addToCartContext, getCartContext, removeItemContext, clearCartContext, decreaseQuantityContext, increaseQuantityContext }}>
+
+
+    return <CartContext.Provider value={{ addToCartContext, getCartContext, removeItemContext, clearCartContext, decreaseQuantityContext, increaseQuantityContext, count }}>
         {children}
     </CartContext.Provider>
 
